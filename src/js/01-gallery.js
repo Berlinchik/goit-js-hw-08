@@ -2,9 +2,9 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-import SimpleLightbox from 'simpleLightbox';
+import SimpleLightbox from '../../node_modules/simplelightbox/src/simple-lightbox.js';
 
-import 'simplelightbox/dist/simple-lightbox.min.css';
+import '../../node_modules/simplelightbox/dist/simple-lightbox.min.css';
 
 const galaryList = document.querySelector('.gallery');
 function createGalaryMarkup(array) {
