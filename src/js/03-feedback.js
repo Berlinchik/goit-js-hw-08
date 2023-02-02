@@ -4,21 +4,18 @@ import throttle from 'lodash.throttle';
 const form = document.querySelector('.feedback-form');
 const emailInput = form.querySelector('input');
 const messagelInput = form.querySelector('textarea');
-//якщо в localStorage є якісь збережені данні - підставляю їх в інпути
-const currentData = JSON.parse(localStorage.getItem('feedback-form-state'));
-if (currentData) {
-  emailInput.value = currentData.email || '';
-  messagelInput.value = currentData.message || '';
-}
+//якщо в localStorage є якісь збережені данні - підставляю їх в інпути, якщо данних немає створюємо пустий обʼєкт.
+const currentData =
+  JSON.parse(localStorage.getItem('feedback-form-state')) || {};
+emailInput.value = currentData.email || '';
+messagelInput.value = currentData.message || '';
 //вішаю слухачі на форму
 form.addEventListener('input', throttle(pushToServer, 1000));
 form.addEventListener('submit', onSubmitForm);
-//створюю пустий обʼєкт, щоб потім в нього зберегти данні з інпутів
-const obj = {};
 //функція для додавання данних на локальне сховище
 function pushToServer({ target }) {
-  obj[target.name] = target.value;
-  localStorage.setItem('feedback-form-state', JSON.stringify(obj));
+  currentData[target.name] = target.value;
+  localStorage.setItem('feedback-form-state', JSON.stringify(currentData));
 }
 //при сабміті виводимо дані(взяті з локального сховища) у вигляді обʼєкту в консоль, стираємо інпути та чистимо локальне сховище
 function onSubmitForm(e) {
