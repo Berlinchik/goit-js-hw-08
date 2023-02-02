@@ -7,8 +7,8 @@ const messagelInput = form.querySelector('textarea');
 //якщо в localStorage є якісь збережені данні - підставляю їх в інпути
 const currentData = JSON.parse(localStorage.getItem('feedback-form-state'));
 if (currentData) {
-  emailInput.value = currentData.email;
-  messagelInput.value = currentData.message;
+  emailInput.value = currentData.email || '';
+  messagelInput.value = currentData.message || '';
 }
 //вішаю слухачі на форму
 form.addEventListener('input', throttle(pushToServer, 1000));
@@ -23,6 +23,9 @@ function pushToServer({ target }) {
 //при сабміті виводимо дані(взяті з локального сховища) у вигляді обʼєкту в консоль, стираємо інпути та чистимо локальне сховище
 function onSubmitForm(e) {
   e.preventDefault();
+  if (emailInput.value === '' || messagelInput === '') {
+    return alert('Заповніть усі поля!');
+  }
   console.log(JSON.parse(localStorage.getItem('feedback-form-state')));
   e.target.reset();
   localStorage.removeItem('feedback-form-state');
