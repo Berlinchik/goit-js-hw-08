@@ -23,7 +23,7 @@ function pushToServer({ target }) {
 //при сабміті виводимо дані(взяті з локального сховища) у вигляді обʼєкту в консоль, стираємо інпути та чистимо локальне сховище
 function onSubmitForm(e) {
   e.preventDefault();
-  if (emailInput.value === '' || messagelInput === '') {
+  if (emailInput.value === '' || messagelInput.value === '') {
     return alert('Заповніть усі поля!');
   }
   console.log(JSON.parse(localStorage.getItem('feedback-form-state')));
